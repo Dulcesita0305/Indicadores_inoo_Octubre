@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte Comercial & Retorno de Inversión - Octubre 2026</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blue: '#3B82F6',
+              cyan: '#06B6D4',
+              emerald: '#10B981',
+              amber: '#F59E0B',
+              rose: '#F43F5E'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Custom scrollbar for data tables and filter pills */
+    ::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .card-glow {
+      box-shadow: 0 4px 20px -2px rgba(6, 182, 212, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-cyan-500 selection:text-slate-950 pb-16">
+
+  <!-- Top Announcement / System Bar -->
+  <div class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <span class="flex h-2.5 w-2.5 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+        </span>
+        <span class="text-xs font-semibold tracking-wider uppercase text-emerald-400">Datos Auditados • Cierre Mensual</span>
+        <span class="text-slate-500 text-xs">|</span>
+        <span class="text-xs text-slate-300 font-medium">Octubre 2026</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-cyan-950/70 text-cyan-400 border border-cyan-800/60">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 mr-1"></i> BI Certified Report
+        </span>
+        <button onclick="resetFilter()" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1 px-2 py-1 rounded bg-slate-800/70 border border-slate-700/60">
+          <i data-lucide="rotate-ccw" class="w-3 h-3"></i> Restablecer Vista
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 space-y-8">
+
+    <!-- Header Section -->
+    <header class="space-y-4">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-semibold text-cyan-400 tracking-wider uppercase mb-1.5">
+            <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Executive Intelligence Dashboard
+          </div>
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+            Reporte Comercial & Retorno de Inversión
+          </h1>
+          <p class="text-slate-400 text-sm sm:text-base mt-1.5 max-w-3xl">
+            Desempeño de Pauta Publicitaria, ROAS y Análisis de CPA por Colaborador • Octubre 2026
+          </p>
+        </div>
+        
+        <!-- Summary Badge / Quick Status -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3 sm:p-4 flex items-center gap-4 shrink-0 shadow-lg">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-inner">
+            <i data-lucide="trending-up" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="text-xs font-medium text-slate-400 uppercase tracking-wider">Retorno Neto Operativo</div>
+            <div class="text-xl sm:text-2xl font-bold text-emerald-400 mono">S/. 18,067.58</div>
+            <div class="text-[11px] text-slate-400">Margen neto s/ pauta: <span class="text-emerald-300 font-semibold">81.98%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Tabs / Pills -->
+      <div class="pt-2">
+        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <i data-lucide="filter" class="w-3.5 h-3.5 text-cyan-400"></i> Filtrar por Asesor Comercial:
+        </label>
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin" id="filter-container">
+          <button onclick="setAdvisorFilter('all')" id="btn-filter-all"
+            class="filter-pill active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 border bg-cyan-500/20 text-cyan-300 border-cyan-500/60 shadow-sm flex items-center gap-2 shrink-0">
+            <i data-lucide="users" class="w-4 h-4"></i> Equipo Completo
+            <span class="bg-cyan-500/30 text-cyan-200 text-[10px] px-1.5 py-0.5 rounded-full">4</span>
+          </button>
+          <button onclick="setAdvisorFilter('Jean Pierre...')" id="btn-filter-jean"
+            class="filter-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 border bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white shrink-0 flex items-center gap-2">
+            <span>Jean Pierre...</span>
+            <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800/80 px-1.5 py-0.5 rounded">CPA: S/. 248.28</span>
+          </button>
+          <button onclick="setAdvisorFilter('Virginia Pa...')" id="btn-filter-virginia"
+            class="filter-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 border bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white shrink-0 flex items-center gap-2">
+            <span>Virginia Pa...</span>
+            <span class="text-[10px] bg-blue-950 text-blue-400 border border-blue-800/80 px-1.5 py-0.5 rounded">ROAS: 6.57x</span>
+          </button>
+          <button onclick="setAdvisorFilter('Alonso Olay...')" id="btn-filter-alonso"
+            class="filter-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 border bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white shrink-0 flex items-center gap-2">
+            <span>Alonso Olay...</span>
+            <span class="text-[10px] bg-blue-950 text-blue-400 border border-blue-800/80 px-1.5 py-0.5 rounded">2 Cierres</span>
+          </button>
+          <button onclick="setAdvisorFilter('Ernesto Vas...')" id="btn-filter-ernesto"
+            class="filter-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 border bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white shrink-0 flex items-center gap-2">
+            <span>Ernesto Vas...</span>
+            <span class="text-[10px] bg-amber-950 text-amber-400 border border-amber-800/80 px-1.5 py-0.5 rounded">ROAS: 2.58x</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top KPI Cards Grid -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      
+      <!-- Card 1: Ingresos -->
+      <div class="bg-slate-900/90 border border-slate-800/90 rounded-2xl p-5 hover:border-blue-500/50 transition duration-300 card-glow relative overflow-hidden group">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/20 transition"></div>
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">Ingresos Totales</span>
+          <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white mono" id="kpi-ingresos">S/. 22,040.00</div>
+        <div class="mt-2 flex items-center justify-between text-xs">
+          <span class="text-emerald-400 font-medium flex items-center gap-1" id="kpi-ingresos-sub">
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i> 22.04K recaudado
+          </span>
+          <span class="text-slate-500 text-[11px]" id="kpi-ingresos-pct">100% cuota</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Inversión en Publicidad -->
+      <div class="bg-slate-900/90 border border-slate-800/90 rounded-2xl p-5 hover:border-cyan-500/50 transition duration-300 card-glow relative overflow-hidden group">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-cyan-500/10 rounded-full blur-xl group-hover:bg-cyan-500/20 transition"></div>
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">Inversión Pauta</span>
+          <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i data-lucide="megaphone" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white mono" id="kpi-inversion">S/. 3,972.42</div>
+        <div class="mt-2 pt-2 border-t border-slate-800/80 text-[11px] text-slate-400 flex flex-col gap-0.5" id="kpi-pauta-breakdown">
+          <div class="flex justify-between">
+            <span class="flex items-center gap-1 text-slate-300"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>FB Ads:</span>
+            <span class="mono font-semibold text-slate-200">S/. 3,035.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="flex items-center gap-1 text-slate-300"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>Google Ads:</span>
+            <span class="mono font-semibold text-slate-200">S/. 937.42</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: ROAS -->
+      <div class="bg-slate-900/90 border border-slate-800/90 rounded-2xl p-5 hover:border-emerald-500/50 transition duration-300 card-glow relative overflow-hidden group">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-emerald-500/10 rounded-full blur-xl group-hover:bg-emerald-500/20 transition"></div>
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">ROAS Global</span>
+          <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mono" id="kpi-roas">5.55x</div>
+        <div class="mt-2 flex items-center justify-between text-xs">
+          <span class="text-slate-400" id="kpi-roas-sub">Retorno s/ cada S/. 1.00</span>
+          <span class="inline-flex px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/70" id="kpi-roas-badge">Excelente</span>
+        </div>
+      </div>
+
+      <!-- Card 4: CPA Promedio Global -->
+      <div class="bg-slate-900/90 border border-slate-800/90 rounded-2xl p-5 hover:border-amber-500/50 transition duration-300 card-glow relative overflow-hidden group">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-amber-500/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition"></div>
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider" id="kpi-cpa-title">CPA Promedio Global</span>
+          <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <i data-lucide="target" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white mono" id="kpi-cpa">S/. 441.38</div>
+        <div class="mt-2 flex items-center justify-between text-xs">
+          <span class="text-slate-400" id="kpi-cpa-sub">Costo por adquisición</span>
+          <span class="inline-flex px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-cyan-300 border border-cyan-800/60" id="kpi-cpa-badge">Referencia General</span>
+        </div>
+      </div>
+
+      <!-- Card 5: Oportunidades Ganadas -->
+      <div class="bg-slate-900/90 border border-slate-800/90 rounded-2xl p-5 hover:border-purple-500/50 transition duration-300 card-glow relative overflow-hidden group">
+        <div class="absolute -right-4 -top-4 w-20 h-20 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition"></div>
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">Oportunidades</span>
+          <div class="p-2 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-white mono" id="kpi-ventas">9</div>
+        <div class="mt-2 flex items-center justify-between text-xs">
+          <span class="text-slate-400" id="kpi-ventas-sub">Ventas cerradas con éxito</span>
+          <span class="text-emerald-400 font-mono font-medium text-[11px]">Ticket Prom. S/. 2,448</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Interactive Charts Section -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="pie-chart" class="w-5 h-5 text-cyan-400"></i> Análisis Gráfico & Métricas Comparativas
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400">Visualización de eficiencia de adquisición, ingresos vs inversión y cuota de participación.</p>
+        </div>
+      </div>
+
+      <!-- Grid of Charts -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Chart 1: CPA por Colaborador vs CPA Promedio Global (8 cols on lg) -->
+        <div class="lg:col-span-7 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+          <div>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-800/80">
+              <div>
+                <h3 class="font-bold text-slate-100 text-sm sm:text-base flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                  CPA Individual vs. CPA Promedio Global (S/. 441.38)
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">
+                  Las barras <span class="text-emerald-400 font-semibold">verdes</span> indican costos menores al promedio (mayor eficiencia económica).
+                </p>
+              </div>
+              <div class="flex items-center gap-3 text-xs bg-slate-950/80 px-3 py-1.5 rounded-lg border border-slate-800 shrink-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-1 bg-rose-400/80 border-t border-dashed border-rose-400 inline-block"></span>
+                  <span class="text-slate-300 font-mono text-[11px]">Promedio: S/. 441.38</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Chart Container -->
+            <div class="relative h-72 sm:h-80 w-full mt-4">
+              <canvas id="cpaChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Bottom insight pill -->
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+            <span class="flex items-center gap-1.5 text-emerald-400">
+              <i data-lucide="award" class="w-4 h-4"></i>
+              <strong>Top Performer CPA:</strong> Jean Pierre... con S/. 248.28 (-43.7% vs. promedio)
+            </span>
+            <span class="text-[11px] text-slate-500 font-mono">Fórmula: Inversión Atribuida / Ventas</span>
+          </div>
+        </div>
+
+        <!-- Chart 3: Doughnut Distribution (5 cols on lg) -->
+        <div class="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800/80">
+              <div>
+                <h3 class="font-bold text-slate-100 text-sm sm:text-base flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
+                  Distribución de Ventas e Ingresos
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Participación sobre los S/. 22,040.00 del mes</p>
+              </div>
+              <div class="flex bg-slate-950 p-0.5 rounded-lg border border-slate-800 text-[11px]">
+                <button onclick="toggleDoughnutMetric('revenue')" id="btn-doughnut-revenue" class="px-2.5 py-1 rounded-md font-semibold bg-blue-600 text-white">Ingresos</button>
+                <button onclick="toggleDoughnutMetric('deals')" id="btn-doughnut-deals" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white">Cierres</button>
+              </div>
+            </div>
+
+            <!-- Doughnut Canvas -->
+            <div class="relative h-64 sm:h-72 w-full mt-4 flex items-center justify-center">
+              <canvas id="distributionChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Legend details table inside card -->
+          <div class="mt-4 pt-3 border-t border-slate-800/80 grid grid-cols-2 gap-2 text-xs">
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+              <span class="text-slate-300 truncate font-medium">Jean Pierre</span>
+              <span class="mono font-bold text-emerald-400">54.9%</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+              <span class="text-slate-300 truncate font-medium">Virginia Pa.</span>
+              <span class="mono font-bold text-blue-400">26.3%</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+              <span class="text-slate-300 truncate font-medium">Alonso Olay.</span>
+              <span class="mono font-bold text-cyan-400">13.6%</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950/60 border border-slate-800/60">
+              <span class="text-slate-300 truncate font-medium">Ernesto Vas.</span>
+              <span class="mono font-bold text-amber-400">5.2%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart 2: Ingresos Generados vs Inversión Asignada (Full width 12 cols) -->
+        <div class="lg:col-span-12 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800/80">
+            <div>
+              <h3 class="font-bold text-slate-100 text-sm sm:text-base flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                Ingresos Generados vs. Inversión Asignada por Colaborador
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">
+                Comparativa directa de capital inyectado frente al retorno en ventas brutas para cada asesor comercial.
+              </p>
+            </div>
+            <div class="flex items-center gap-4 text-xs">
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded bg-blue-500 inline-block"></span>
+                <span class="text-slate-300">Ingresos (S/.)</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded bg-rose-500/80 inline-block"></span>
+                <span class="text-slate-300">Inversión Atribuida (S/.)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative h-72 sm:h-80 w-full mt-4">
+            <canvas id="revenueCostChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Table Section: Tabla Comparativa de Rendimiento Comercial -->
+    <section class="bg-slate-900/90 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
+      <div class="p-5 sm:p-6 border-b border-slate-800/90 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="table" class="w-5 h-5 text-cyan-400"></i> Tabla Comparativa de Rendimiento Comercial
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+            Auditoría pormenorizada por colaborador, nivel de retorno y estado de costo de adquisición
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs">
+          <span class="text-slate-400">Referencia CPA Global:</span>
+          <span class="px-2.5 py-1 rounded bg-slate-950 font-mono text-cyan-300 border border-slate-800 font-bold">
+            S/. 441.38
+          </span>
+        </div>
+      </div>
+
+      <!-- Responsive Table Container -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-300" id="advisors-table">
+          <thead class="bg-slate-950/80 text-xs uppercase font-semibold text-slate-400 tracking-wider border-b border-slate-800">
+            <tr>
+              <th scope="col" class="py-3.5 px-4 sm:px-6">Colaborador</th>
+              <th scope="col" class="py-3.5 px-4 text-center">Ventas Cerradas</th>
+              <th scope="col" class="py-3.5 px-4 text-right">Ingresos (S/.)</th>
+              <th scope="col" class="py-3.5 px-4 text-right">% Del Total</th>
+              <th scope="col" class="py-3.5 px-4 text-right">Inversión Asignada (S/.)</th>
+              <th scope="col" class="py-3.5 px-4 text-center">ROAS</th>
+              <th scope="col" class="py-3.5 px-4 text-right">CPA Individual (S/.)</th>
+              <th scope="col" class="py-3.5 px-4 sm:px-6 text-center">Estado vs. Promedio</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/70 font-normal">
+            
+            <!-- Row: Jean Pierre -->
+            <tr class="advisor-row hover:bg-slate-800/40 transition cursor-pointer" data-advisor="Jean Pierre..." onclick="setAdvisorFilter('Jean Pierre...')">
+              <td class="py-4 px-4 sm:px-6 font-medium text-white flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold text-xs">
+                  JP
+                </div>
+                <div>
+                  <div class="font-semibold text-slate-100">Jean Pierre...</div>
+                  <div class="text-[11px] text-slate-400">Líder en volumen y costo</div>
+                </div>
+              </td>
+              <td class="py-4 px-4 text-center mono font-bold text-white text-base">4</td>
+              <td class="py-4 px-4 text-right mono font-semibold text-emerald-400">S/. 12,100.00</td>
+              <td class="py-4 px-4 text-right mono font-semibold text-slate-200">54.9%</td>
+              <td class="py-4 px-4 text-right mono text-slate-300">S/. 1,765.52</td>
+              <td class="py-4 px-4 text-center">
+                <span class="inline-flex px-2.5 py-1 rounded-md text-xs font-bold mono bg-emerald-950/80 text-emerald-400 border border-emerald-800/80">
+                  6.85x
+                </span>
+              </td>
+              <td class="py-4 px-4 text-right mono font-bold text-emerald-300">
+                S/. 248.28
+                <div class="text-[10px] text-emerald-500 font-sans font-medium">-43.7% vs prom.</div>
+              </td>
+              <td class="py-4 px-4 sm:px-6 text-center">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/80 text-emerald-300 border border-emerald-700/60 shadow-sm">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i> Alta Eficiencia
+                </span>
+              </td>
+            </tr>
+
+            <!-- Row: Virginia Pa... -->
+            <tr class="advisor-row hover:bg-slate-800/40 transition cursor-pointer" data-advisor="Virginia Pa..." onclick="setAdvisorFilter('Virginia Pa...')">
+              <td class="py-4 px-4 sm:px-6 font-medium text-white flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-xs">
+                  VP
+                </div>
+                <div>
+                  <div class="font-semibold text-slate-100">Virginia Pa...</div>
+                  <div class="text-[11px] text-slate-400">Excelente conversión de ticket</div>
+                </div>
+              </td>
+              <td class="py-4 px-4 text-center mono font-bold text-white text-base">2</td>
+              <td class="py-4 px-4 text-right mono font-semibold text-blue-400">S/. 5,800.00</td>
+              <td class="py-4 px-4 text-right mono font-semibold text-slate-200">26.3%</td>
+              <td class="py-4 px-4 text-right mono text-slate-300">S/. 882.76</td>
+              <td class="py-4 px-4 text-center">
+                <span class="inline-flex px-2.5 py-1 rounded-md text-xs font-bold mono bg-blue-950/80 text-blue-400 border border-blue-800/80">
+                  6.57x
+                </span>
+              </td>
+              <td class="py-4 px-4 text-right mono font-semibold text-slate-200">
+                S/. 496.55
+                <div class="text-[10px] text-slate-400 font-sans">+12.5% vs prom.</div>
+              </td>
+              <td class="py-4 px-4 sm:px-6 text-center">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-950/70 text-blue-300 border border-blue-800/60 shadow-sm">
+                  <i data-lucide="minus" class="w-3.5 h-3.5"></i> Moderado
+                </span>
+              </td>
+            </tr>
+
+            <!-- Row: Alonso Olay... -->
+            <tr class="advisor-row hover:bg-slate-800/40 transition cursor-pointer" data-advisor="Alonso Olay..." onclick="setAdvisorFilter('Alonso Olay...')">
+              <td class="py-4 px-4 sm:px-6 font-medium text-white flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center font-bold text-xs">
+                  AO
+                </div>
+                <div>
+                  <div class="font-semibold text-slate-100">Alonso Olay...</div>
+                  <div class="text-[11px] text-slate-400">Rendimiento equilibrado</div>
+                </div>
+              </td>
+              <td class="py-4 px-4 text-center mono font-bold text-white text-base">2</td>
+              <td class="py-4 px-4 text-right mono font-semibold text-cyan-400">S/. 3,000.00</td>
+              <td class="py-4 px-4 text-right mono font-semibold text-slate-200">13.6%</td>
+              <td class="py-4 px-4 text-right mono text-slate-300">S/. 882.76</td>
+              <td class="py-4 px-4 text-center">
+                <span class="inline-flex px-2.5 py-1 rounded-md text-xs font-bold mono bg-slate-800 text-cyan-300 border border-slate-700">
+                  3.40x
+                </span>
+              </td>
+              <td class="py-4 px-4 text-right mono font-semibold text-slate-200">
+                S/. 496.55
+                <div class="text-[10px] text-slate-400 font-sans">+12.5% vs prom.</div>
+              </td>
+              <td class="py-4 px-4 sm:px-6 text-center">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-950/70 text-blue-300 border border-blue-800/60 shadow-sm">
+                  <i data-lucide="minus" class="w-3.5 h-3.5"></i> Moderado
+                </span>
+              </td>
+            </tr>
+
+            <!-- Row: Ernesto Vas... -->
+            <tr class="advisor-row hover:bg-slate-800/40 transition cursor-pointer" data-advisor="Ernesto Vas..." onclick="setAdvisorFilter('Ernesto Vas...')">
+              <td class="py-4 px-4 sm:px-6 font-medium text-white flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-xs">
+                  EV
+                </div>
+                <div>
+                  <div class="font-semibold text-slate-100">Ernesto Vas...</div>
+                  <div class="text-[11px] text-slate-400">Oportunidad de optimización</div>
+                </div>
+              </td>
+              <td class="py-4 px-4 text-center mono font-bold text-white text-base">1</td>
+              <td class="py-4 px-4 text-right mono font-semibold text-amber-400">S/. 1,140.00</td>
+              <td class="py-4 px-4 text-right mono font-semibold text-slate-200">5.2%</td>
+              <td class="py-4 px-4 text-right mono text-slate-300">S/. 441.38</td>
+              <td class="py-4 px-4 text-center">
+                <span class="inline-flex px-2.5 py-1 rounded-md text-xs font-bold mono bg-amber-950/80 text-amber-400 border border-amber-800/80">
+                  2.58x
+                </span>
+              </td>
+              <td class="py-4 px-4 text-right mono font-bold text-rose-400">
+                S/. 993.11
+                <div class="text-[10px] text-rose-400 font-sans">+125% vs prom.</div>
+              </td>
+              <td class="py-4 px-4 sm:px-6 text-center">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-950/70 text-amber-300 border border-amber-800/60 shadow-sm">
+                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Por Mejorar
+                </span>
+              </td>
+            </tr>
+
+          </tbody>
+          <tfoot class="bg-slate-950 font-bold border-t-2 border-slate-700 text-xs">
+            <tr class="text-slate-200">
+              <td class="py-4 px-4 sm:px-6 uppercase tracking-wider text-cyan-400">Total Consolidado</td>
+              <td class="py-4 px-4 text-center mono text-white text-base">9</td>
+              <td class="py-4 px-4 text-right mono text-emerald-400 text-sm">S/. 22,040.00</td>
+              <td class="py-4 px-4 text-right mono text-slate-300">100.0%</td>
+              <td class="py-4 px-4 text-right mono text-slate-200 text-sm">S/. 3,972.42</td>
+              <td class="py-4 px-4 text-center mono text-emerald-400 text-sm">5.55x</td>
+              <td class="py-4 px-4 text-right mono text-cyan-300 text-sm">S/. 441.38 (Prom.)</td>
+              <td class="py-4 px-4 sm:px-6 text-center text-slate-400 font-medium">Global Mes</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- Executive Insights / Recomendaciones Estratégicas -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      
+      <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5">
+        <div class="flex items-center gap-2.5 text-emerald-400 mb-2 font-semibold text-sm">
+          <i data-lucide="check-circle" class="w-4 h-4"></i> Eficiencia Sobresaliente
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          <strong class="text-white">Jean Pierre...</strong> concentró el <span class="text-emerald-400 font-bold">54.9%</span> de la facturación global con un CPA de apenas <span class="mono text-white">S/. 248.28</span>, superando el promedio general en un 43.7% de ahorro por cada cliente captado.
+        </p>
+      </div>
+
+      <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5">
+        <div class="flex items-center gap-2.5 text-blue-400 mb-2 font-semibold text-sm">
+          <i data-lucide="trending-up" class="w-4 h-4"></i> Alto Ticket Promedio
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          <strong class="text-white">Virginia Pa...</strong> logró un ticket promedio elevado de <span class="mono text-white">S/. 2,900.00</span> por cierre con un ROAS de <span class="text-blue-400 font-bold">6.57x</span>, posicionándose como la segunda mayor contribuidora de ingresos netos.
+        </p>
+      </div>
+
+      <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5">
+        <div class="flex items-center gap-2.5 text-amber-400 mb-2 font-semibold text-sm">
+          <i data-lucide="alert-circle" class="w-4 h-4"></i> Punto de Acción Comercial
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          <strong class="text-white">Ernesto Vas...</strong> registra un CPA de <span class="mono text-amber-400">S/. 993.11</span> (2.25x sobre la media). Se recomienda retroalimentación en técnicas de cierre de leads calificados para equilibrar la inversión de pauta publicitaria.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
+      <div class="flex items-center gap-2">
+        <i data-lucide="cpu" class="w-4 h-4 text-cyan-500"></i>
+        <span>Business Intelligence & Performance System • Versión Octubre 2026</span>
+      </div>
+      <div>
+        <span>Desarrollado con HTML5, Tailwind CSS & Chart.js • Autónomo para GitHub Pages</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Interactive Logic & Chart Configurations -->
+  <script>
+    // Lucide Icons init
+    lucide.createIcons();
+
+    // Raw Audited Data
+    const rawData = {
+      global: {
+        period: "Octubre 2026",
+        ingresos: 22040.00,
+        inversionTotal: 3972.42,
+        fbAds: 3035.00,
+        googleAds: 937.42,
+        ventas: 9,
+        roas: 5.55,
+        cpaPromedio: 441.38,
+        retornoNeto: 18067.58
+      },
+      advisors: [
+        {
+          name: "Jean Pierre...",
+          ventas: 4,
+          ingresos: 12100.00,
+          pctTotal: 54.9,
+          cpa: 248.28,
+          inversionAtribuida: 1765.52,
+          roas: 6.85,
+          estado: "Alta Eficiencia",
+          color: "#10B981" // emerald
+        },
+        {
+          name: "Virginia Pa...",
+          ventas: 2,
+          ingresos: 5800.00,
+          pctTotal: 26.3,
+          cpa: 496.55,
+          inversionAtribuida: 882.76,
+          roas: 6.57,
+          estado: "Moderado",
+          color: "#3B82F6" // blue
+        },
+        {
+          name: "Alonso Olay...",
+          ventas: 2,
+          ingresos: 3000.00,
+          pctTotal: 13.6,
+          cpa: 496.55,
+          inversionAtribuida: 882.76,
+          roas: 3.40,
+          estado: "Moderado",
+          color: "#06B6D4" // cyan
+        },
+        {
+          name: "Ernesto Vas...",
+          ventas: 1,
+          ingresos: 1140.00,
+          pctTotal: 5.2,
+          cpa: 993.11,
+          inversionAtribuida: 441.38,
+          roas: 2.58,
+          estado: "Por Mejorar",
+          color: "#F59E0B" // amber
+        }
+      ]
+    };
+
+    // Chart.js Instances
+    let cpaChartInstance = null;
+    let revenueCostChartInstance = null;
+    let distributionChartInstance = null;
+    let currentDoughnutMetric = 'revenue';
+    let currentFilter = 'all';
+
+    // Formatting Helpers
+    const formatMoney = (val) => 'S/. ' + val.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    
+    // Init Charts
+    function initCharts() {
+      Chart.defaults.color = '#94a3b8';
+      Chart.defaults.font.family = "'Inter', sans-serif";
+
+      // 1. CPA Chart with Average Line
+      const ctxCpa = document.getElementById('cpaChart').getContext('2d');
+      const advisorNames = rawData.advisors.map(a => a.name);
+      const cpaValues = rawData.advisors.map(a => a.cpa);
+      const backgroundColors = rawData.advisors.map(a => a.cpa < rawData.global.cpaPromedio ? '#10B981' : (a.cpa > 700 ? '#F43F5E' : '#3B82F6'));
+
+      cpaChartInstance = new Chart(ctxCpa, {
+        type: 'bar',
+        data: {
+          labels: advisorNames,
+          datasets: [
+            {
+              label: 'CPA Individual (S/.)',
+              data: cpaValues,
+              backgroundColor: backgroundColors,
+              borderRadius: 8,
+              barThickness: 36,
+              order: 2
+            },
+            {
+              label: 'CPA Promedio Global (S/. 441.38)',
+              data: new Array(advisorNames.length).fill(rawData.global.cpaPromedio),
+              type: 'line',
+              borderColor: '#F43F5E',
+              borderWidth: 2,
+              borderDash: [6, 6],
+              pointBackgroundColor: '#F43F5E',
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              fill: false,
+              order: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                color: '#cbd5e1',
+                font: { size: 11 }
+              }
+            },
+            tooltip: {
+              backgroundColor: '#0f172a',
+              borderColor: '#334155',
+              borderWidth: 1,
+              titleColor: '#f8fafc',
+              bodyColor: '#cbd5e1',
+              padding: 12,
+              callbacks: {
+                label: function(context) {
+                  return ` ${context.dataset.label}: ${formatMoney(context.parsed.y)}`;
+                },
+                afterLabel: function(context) {
+                  if (context.datasetIndex === 0) {
+                    const diff = context.parsed.y - rawData.global.cpaPromedio;
+                    const pct = ((diff / rawData.global.cpaPromedio) * 100).toFixed(1);
+                    return diff < 0 
+                      ? ` ✓ Eficiente (${Math.abs(pct)}% bajo promedio)` 
+                      : ` ⚠ Sobre promedio (+${pct}%)`;
+                  }
+                  return '';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(51, 65, 85, 0.4)' },
+              ticks: {
+                callback: (val) => 'S/. ' + val,
+                color: '#94a3b8'
+              }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#cbd5e1' }
+            }
+          }
+        }
+      });
+
+      // 2. Revenue vs Cost Chart (Grouped Bars)
+      const ctxRevCost = document.getElementById('revenueCostChart').getContext('2d');
+      revenueCostChartInstance = new Chart(ctxRevCost, {
+        type: 'bar',
+        data: {
+          labels: advisorNames,
+          datasets: [
+            {
+              label: 'Ingresos Generados (S/.)',
+              data: rawData.advisors.map(a => a.ingresos),
+              backgroundColor: '#3B82F6',
+              borderRadius: 6,
+              barThickness: 28
+            },
+            {
+              label: 'Inversión Asignada (S/.)',
+              data: rawData.advisors.map(a => a.inversionAtribuida),
+              backgroundColor: '#F43F5E',
+              borderRadius: 6,
+              barThickness: 28
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                color: '#cbd5e1',
+                font: { size: 11 }
+              }
+            },
+            tooltip: {
+              backgroundColor: '#0f172a',
+              borderColor: '#334155',
+              borderWidth: 1,
+              padding: 12,
+              callbacks: {
+                label: (ctx) => ` ${ctx.dataset.label}: ${formatMoney(ctx.parsed.y)}`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(51, 65, 85, 0.4)' },
+              ticks: {
+                callback: (val) => 'S/. ' + (val >= 1000 ? (val/1000) + 'k' : val),
+                color: '#94a3b8'
+              }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#cbd5e1' }
+            }
+          }
+        }
+      });
+
+      // 3. Distribution Doughnut Chart
+      renderDoughnut();
+    }
+
+    function renderDoughnut() {
+      const ctxDist = document.getElementById('distributionChart').getContext('2d');
+      if (distributionChartInstance) {
+        distributionChartInstance.destroy();
+      }
+
+      const dataValues = currentDoughnutMetric === 'revenue' 
+        ? rawData.advisors.map(a => a.ingresos)
+        : rawData.advisors.map(a => a.ventas);
+
+      const labels = rawData.advisors.map(a => a.name);
+
+      distributionChartInstance = new Chart(ctxDist, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: dataValues,
+            backgroundColor: ['#10B981', '#3B82F6', '#06B6D4', '#F59E0B'],
+            borderColor: '#0f172a',
+            borderWidth: 3,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: '#0f172a',
+              borderColor: '#334155',
+              borderWidth: 1,
+              padding: 12,
+              callbacks: {
+                label: function(context) {
+                  const val = context.raw;
+                  if (currentDoughnutMetric === 'revenue') {
+                    const pct = ((val / rawData.global.ingresos) * 100).toFixed(1);
+                    return ` ${context.label}: ${formatMoney(val)} (${pct}%)`;
+                  } else {
+                    const pct = ((val / rawData.global.ventas) * 100).toFixed(1);
+                    return ` ${context.label}: ${val} cierres (${pct}%)`;
+                  }
+                }
+              }
+            }
+          },
+          cutout: '70%'
+        }
+      });
+    }
+
+    function toggleDoughnutMetric(metric) {
+      currentDoughnutMetric = metric;
+      const btnRev = document.getElementById('btn-doughnut-revenue');
+      const btnDeals = document.getElementById('btn-doughnut-deals');
+
+      if (metric === 'revenue') {
+        btnRev.className = 'px-2.5 py-1 rounded-md font-semibold bg-blue-600 text-white';
+        btnDeals.className = 'px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white';
+      } else {
+        btnDeals.className = 'px-2.5 py-1 rounded-md font-semibold bg-blue-600 text-white';
+        btnRev.className = 'px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white';
+      }
+      renderDoughnut();
+    }
+
+    // Dynamic Filter Interaction
+    function setAdvisorFilter(advisorName) {
+      currentFilter = advisorName;
+
+      // Update pills styling
+      const pills = document.querySelectorAll('.filter-pill');
+      pills.forEach(pill => {
+        pill.classList.remove('bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/60', 'font-semibold');
+        pill.classList.add('bg-slate-900/80', 'text-slate-300', 'border-slate-800');
+      });
+
+      let targetBtnId = 'btn-filter-all';
+      if (advisorName === 'Jean Pierre...') targetBtnId = 'btn-filter-jean';
+      else if (advisorName === 'Virginia Pa...') targetBtnId = 'btn-filter-virginia';
+      else if (advisorName === 'Alonso Olay...') targetBtnId = 'btn-filter-alonso';
+      else if (advisorName === 'Ernesto Vas...') targetBtnId = 'btn-filter-ernesto';
+
+      const activeBtn = document.getElementById(targetBtnId);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-900/80', 'text-slate-300', 'border-slate-800');
+        activeBtn.classList.add('bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/60', 'font-semibold');
+      }
+
+      // Update KPI Cards
+      const kpiIngresos = document.getElementById('kpi-ingresos');
+      const kpiIngresosSub = document.getElementById('kpi-ingresos-sub');
+      const kpiIngresosPct = document.getElementById('kpi-ingresos-pct');
+      const kpiInversion = document.getElementById('kpi-inversion');
+      const kpiRoas = document.getElementById('kpi-roas');
+      const kpiRoasBadge = document.getElementById('kpi-roas-badge');
+      const kpiCpa = document.getElementById('kpi-cpa');
+      const kpiCpaTitle = document.getElementById('kpi-cpa-title');
+      const kpiCpaBadge = document.getElementById('kpi-cpa-badge');
+      const kpiCpaSub = document.getElementById('kpi-cpa-sub');
+      const kpiVentas = document.getElementById('kpi-ventas');
+      const kpiVentasSub = document.getElementById('kpi-ventas-sub');
+      const pautaBreakdown = document.getElementById('kpi-pauta-breakdown');
+
+      if (advisorName === 'all') {
+        // Global view
+        kpiIngresos.textContent = formatMoney(rawData.global.ingresos);
+        kpiIngresosSub.innerHTML = '<i data-lucide="arrow-up-right" class="w-3.5 h-3.5 inline"></i> 22.04K recaudado';
+        kpiIngresosPct.textContent = '100% cuota';
+
+        kpiInversion.textContent = formatMoney(rawData.global.inversionTotal);
+        pautaBreakdown.style.display = 'flex';
+
+        kpiRoas.textContent = rawData.global.roas + 'x';
+        kpiRoasBadge.textContent = 'Excelente';
+        kpiRoasBadge.className = 'inline-flex px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/70';
+
+        kpiCpaTitle.textContent = 'CPA Promedio Global';
+        kpiCpa.textContent = formatMoney(rawData.global.cpaPromedio);
+        kpiCpaBadge.textContent = 'Referencia General';
+        kpiCpaBadge.className = 'inline-flex px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-cyan-300 border border-cyan-800/60';
+        kpiCpaSub.textContent = 'Costo por adquisición';
+
+        kpiVentas.textContent = rawData.global.ventas;
+        kpiVentasSub.textContent = 'Ventas cerradas con éxito';
+
+        // Reset Table Rows Highlight
+        document.querySelectorAll('.advisor-row').forEach(row => {
+          row.classList.remove('bg-cyan-950/40', 'border-l-4', 'border-cyan-400');
+          row.style.opacity = '1';
+        });
+
+      } else {
+        // Find advisor
+        const adv = rawData.advisors.find(a => a.name === advisorName);
+        if (!adv) return;
+
+        kpiIngresos.textContent = formatMoney(adv.ingresos);
+        kpiIngresosSub.innerHTML = `<span class="text-cyan-400 font-semibold">${adv.pctTotal}% del total mensual</span>`;
+        kpiIngresosPct.textContent = `${adv.ventas} ventas`;
+
+        kpiInversion.textContent = formatMoney(adv.inversionAtribuida);
+        pautaBreakdown.style.display = 'none';
+
+        kpiRoas.textContent = adv.roas + 'x';
+        kpiRoasBadge.textContent = adv.roas >= 5 ? 'Sobresaliente' : (adv.roas >= 3 ? 'Aceptable' : 'Bajo');
+        kpiRoasBadge.className = adv.roas >= 5 
+          ? 'inline-flex px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/70'
+          : (adv.roas >= 3 ? 'inline-flex px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-950 text-blue-400 border border-blue-800/70'
+                           : 'inline-flex px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-950 text-amber-400 border border-amber-800/70');
+
+        kpiCpaTitle.textContent = `CPA Individual (${adv.name})`;
+        kpiCpa.textContent = formatMoney(adv.cpa);
+        const isBetter = adv.cpa <= rawData.global.cpaPromedio;
+        kpiCpaBadge.textContent = isBetter ? 'Alta Eficiencia' : (adv.cpa > 700 ? 'Por Mejorar' : 'Moderado');
+        kpiCpaBadge.className = isBetter 
+          ? 'inline-flex px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-700'
+          : (adv.cpa > 700 ? 'inline-flex px-2 py-0.5 rounded text-[10px] font-bold bg-rose-950 text-rose-400 border border-rose-700'
+                           : 'inline-flex px-2 py-0.5 rounded text-[10px] font-bold bg-blue-950 text-blue-400 border border-blue-700');
+        kpiCpaSub.textContent = `Promedio Global: S/. 441.38`;
+
+        kpiVentas.textContent = adv.ventas;
+        kpiVentasSub.textContent = `Ticket Prom: ${formatMoney(adv.ingresos / adv.ventas)}`;
+
+        // Highlight Row in Table
+        document.querySelectorAll('.advisor-row').forEach(row => {
+          if (row.getAttribute('data-advisor') === advisorName) {
+            row.classList.add('bg-cyan-950/40', 'border-l-4', 'border-cyan-400');
+            row.style.opacity = '1';
+          } else {
+            row.classList.remove('bg-cyan-950/40', 'border-l-4', 'border-cyan-400');
+            row.style.opacity = '0.45';
+          }
+        });
+      }
+
+      // Highlight Charts
+      updateChartHighlights(advisorName);
+      lucide.createIcons();
+    }
+
+    function updateChartHighlights(advisorName) {
+      if (!cpaChartInstance || !revenueCostChartInstance) return;
+
+      const idx = advisorName === 'all' ? -1 : rawData.advisors.findIndex(a => a.name === advisorName);
+
+      // CPA Chart Colors
+      cpaChartInstance.data.datasets[0].backgroundColor = rawData.advisors.map((a, i) => {
+        if (idx === -1) {
+          return a.cpa < rawData.global.cpaPromedio ? '#10B981' : (a.cpa > 700 ? '#F43F5E' : '#3B82F6');
+        }
+        return i === idx ? '#06B6D4' : 'rgba(51, 65, 85, 0.4)';
+      });
+      cpaChartInstance.update();
+
+      // Revenue Cost Colors
+      revenueCostChartInstance.data.datasets[0].backgroundColor = rawData.advisors.map((a, i) => {
+        if (idx === -1) return '#3B82F6';
+        return i === idx ? '#3B82F6' : 'rgba(59, 130, 246, 0.25)';
+      });
+      revenueCostChartInstance.data.datasets[1].backgroundColor = rawData.advisors.map((a, i) => {
+        if (idx === -1) return '#F43F5E';
+        return i === idx ? '#F43F5E' : 'rgba(244, 63, 94, 0.25)';
+      });
+      revenueCostChartInstance.update();
+    }
+
+    function resetFilter() {
+      setAdvisorFilter('all');
+    }
+
+    // Startup
+    window.addEventListener('DOMContentLoaded', () => {
+      initCharts();
+    });
+  </script>
+</body>
+</html>
